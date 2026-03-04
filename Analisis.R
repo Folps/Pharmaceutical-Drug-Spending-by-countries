@@ -230,6 +230,6 @@ write_csv(stats_por_pais, "estadisticas_latam.csv")
 
 # =============================================================================
 # FIN DEL SCRIPT
-# Próximo paso: convertí este script en un R Markdown (.Rmd)
+# Próximo paso: convertír este script en un R Markdown (.Rmd)
 # para generar un reporte HTML con texto + código + gráficos integrados.
 # =============================================================================
