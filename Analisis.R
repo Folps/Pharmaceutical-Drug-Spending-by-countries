@@ -20,10 +20,8 @@ library(corrplot)    # visualización de matrices de correlación
 # PASO 2: Cargar y explorar los datos
 # -----------------------------------------------------------------------------
 
-# Cargá el CSV —
 pop <- read_csv("population.csv")
 
-# Explorá la estructura básica
 glimpse(pop)       # tipo de cada columna y primeros valores
 head(pop, 10)      # primeras 10 filas
 tail(pop, 5)       # últimas 5 filas
@@ -35,8 +33,6 @@ names(pop)         # nombres de las columnas
 # -----------------------------------------------------------------------------
 # PASO 3: Limpiar los nombres de columnas
 # -----------------------------------------------------------------------------
-# Los espacios en nombres de columnas causan errores.
-# rename() les da nombres más simples y seguros.
 
 pop <- pop %>%
   rename(
@@ -46,7 +42,6 @@ pop <- pop %>%
     population   = Value
   )
 
-# Verificá el resultado
 names(pop)
 
 
@@ -86,14 +81,12 @@ pop %>%
 latam <- pop %>%
   filter(country_code %in% c("URY", "ARG", "BRA", "CHL", "COL", "PER", "MEX"))
 
-# Verificá que el filtro funcionó
 unique(latam$country_name)
 
 
 # -----------------------------------------------------------------------------
 # PASO 6: Estadísticas descriptivas por país
 # -----------------------------------------------------------------------------
-# group_by() agrupa, summarise() calcula métricas por grupo
 
 stats_por_pais <- latam %>%
   group_by(country_name) %>%
@@ -113,7 +106,6 @@ print(stats_por_pais)
 # -----------------------------------------------------------------------------
 # PASO 7: Visualización — Evolución temporal (línea)
 # -----------------------------------------------------------------------------
-# ggplot2 funciona por capas: datos → ejes → geometría → estilos
 
 ggplot(data = latam,
        aes(x = year, y = population / 1e6,  # dividimos por millón para simplificar el eje
@@ -132,7 +124,6 @@ ggplot(data = latam,
 # -----------------------------------------------------------------------------
 # PASO 8: Visualización — Boxplot por país
 # -----------------------------------------------------------------------------
-# El boxplot muestra mediana, cuartiles y outliers de un vistazo
 
 ggplot(data = latam,
        aes(x = country_name, y = population / 1e6, fill = country_name)) +
@@ -220,12 +211,9 @@ pop_2023 %>%
 # -----------------------------------------------------------------------------
 # PASO 12: Exportar resultados
 # -----------------------------------------------------------------------------
-# Guardá las tablas de estadísticas para compartir o usar en reportes
 
 write_csv(stats_por_pais, "estadisticas_latam.csv")
 
-# Para guardar un gráfico usá ggsave() justo después de generarlo:
-# ggsave("evolucion_latam.png", width = 10, height = 6, dpi = 300)
 
 
 # =============================================================================
